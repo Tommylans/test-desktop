@@ -124,7 +124,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build-windows, build-macos, build-linux]
 
-    if: github.event_name == 'tag'
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
 
     steps:
       - name: Download built binaries
