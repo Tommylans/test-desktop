@@ -16,9 +16,14 @@
     "name": "Tom Lanser",
     "email": "tom@devv.nl"
   },
+  "repository": {
+    "url": "https://github.com/Tommylans/test-desktop",
+    "type": "git"
+  },
   "license": "MIT",
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "update-electron-app": "^2.0.1"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.4",
