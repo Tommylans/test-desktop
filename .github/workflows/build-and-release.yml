@@ -130,12 +130,8 @@ jobs:
       - name: Download built binaries
         uses: actions/download-artifact@v3
       - run: |
-          ls -la
-          find .
-          mv ./*/*/*/* ./darwin/*/* .
-          
-          rm -rf ./windows ./darwin ./linux
-
+          find ./ -mindepth 2 -type f -exec mv -i '{}' ./ ';'
+          ls -al
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
