@@ -25,7 +25,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-desktop-linux
-          path: ./out/*/*.*
+          path: ./out/make/**/*.*
           retention-days: 7
 
   build-macos:
@@ -95,7 +95,7 @@ jobs:
           uses: actions/upload-artifact@v3
           with:
             name: test-desktop-macos-${{ matrix.arch }}
-            path: ./out/*/*.*
+            path: ./out/make/**/*.*
             retention-days: 7
 
   build-windows:
@@ -116,7 +116,7 @@ jobs:
           uses: actions/upload-artifact@v3
           with:
             name: test-desktop-windows
-            path: ./out/*/*.*
+            path: ./out/make/**/*.*
             retention-days: 7
 
   release:
