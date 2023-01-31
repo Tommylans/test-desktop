@@ -133,10 +133,10 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            out/**/*.deb
-            out/**/*.dmg
-            out/**/*setup*.exe
-            out/**/*.nupkg
-            out/**/*.rpm
-            out/**/*.zip
-            out/**/RELEASES
+            ./**/*.deb
+            ./**/*.dmg
+            ./**/*setup*.exe
+            ./**/*.nupkg
+            ./**/*.rpm
+            ./**/*.zip
+            ./**/RELEASES
