@@ -135,7 +135,7 @@ jobs:
           files: |
             ./**/*.deb
             ./**/*.dmg
-            ./**/*setup*.exe
+            ./**/*.exe
             ./**/*.nupkg
             ./**/*.rpm
             ./**/*.zip
