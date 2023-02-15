@@ -1,12 +1,42 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, autoUpdater, dialog } = require('electron');
 const path = require('path');
-
-require('update-electron-app')()
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
+
+
+// TODO: Base this of the repository url from the package.json file
+const server = 'https://update.electronjs.org';
+const repo = 'tommylans/test-desktop';
+const feed = `${server}/${repo}/${process.platform}-${process.arch}/${app.getVersion()}`;
+
+console.log(feed)
+
+autoUpdater.setFeedURL({url: feed});
+autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
+    const dialogOpts = {
+        type: 'info',
+        buttons: ['Restart', 'Later'],
+        title: 'Application Update',
+        message: process.platform === 'win32' ? releaseNotes : releaseName,
+        detail: 'A new version has been downloaded. Restart the application to apply the updates.'
+    };
+
+    dialog.showMessageBox(dialogOpts).then((returnValue) => {
+        if (returnValue.response === 0) autoUpdater.quitAndInstall();
+    });
+})
+
+autoUpdater.on('error', message => {
+    console.error('There was a problem updating the application');
+    console.error(message);
+})
+
+setInterval(() => {
+  autoUpdater.checkForUpdates()
+}, 60000)
 
 const createWindow = () => {
   // Create the browser window.
