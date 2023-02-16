@@ -1,3 +1,6 @@
+const fs = require("fs/promises");
+const path = require("path");
+const {execSync} = require("child_process");
 const nodeenv = process.env.NODE_ENV
 const isProd = nodeenv === 'production'
 
@@ -22,6 +25,20 @@ module.exports = {
       appleApiIssuer: process.env.APPLE_API_ISSUER,
     },
   },
+  hooks: {
+    packageAfterCopy: async (config, buildPath, electronVersion, platform) => {
+      if (platform === 'linux') {
+        const resourcePath = path.join(buildPath, '..', 'package-type')
+
+        console.log('resourcePath', resourcePath)
+        console.log('platform', platform)
+        console.log('electronVersion', electronVersion)
+        console.log('config', config)
+
+        await fs.writeFile(resourcePath, 'deb') // TODO: This should be dynamic for the specific target
+      }
+    },
+  },
   rebuildConfig: {},
   makers: [
     {
@@ -42,13 +59,14 @@ module.exports = {
         },
       },
     },
-    {
-      name: '@electron-forge/maker-rpm',
-      config: {
-        options: {
-          bin: 'test-desktop',
-        },
-      },
-    },
+    // TODO: Make a Github matrix for this so automatic updates will still work
+    // {
+    //   name: '@electron-forge/maker-rpm',
+    //   config: {
+    //     options: {
+    //       bin: 'test-desktop',
+    //     },
+    //   },
+    // },
   ],
 };

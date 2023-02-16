@@ -62,10 +62,12 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
-  console.log(autoUpdater.getFeedURL())
-
+  console.log(process.resourcesPath)
 
   autoUpdater.checkForUpdatesAndNotify()
+  setInterval(() => {
+    autoUpdater.checkForUpdatesAndNotify()
+  }, 60000)
 };
 
 // This method will be called when Electron has finished
